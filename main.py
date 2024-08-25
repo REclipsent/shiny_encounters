@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import encounter_io as ei
 
 
@@ -17,7 +17,16 @@ def increment_counter(*args) -> None:
 
 
 def reset_count(*args) -> None:
-    count.set(0)
+    current_count: int = count.get()
+    current_pokemon: str = pokemon.get().strip()
+
+    if current_count == 0 or current_pokemon == "":
+        return
+
+    if messagebox.askyesno('Reset', 'Do you want to reset the count?'):
+        current_count = 0
+        count.set(0)
+        ei.save_counts(current_pokemon, current_count)
 
 
 def load_pokemon(*args) -> None:
