@@ -7,6 +7,9 @@ def increment_counter(*args) -> None:
     current_count: int = count.get()
     current_pokemon: str = pokemon.get().strip()
 
+    if current_pokemon == "":
+        return
+
     current_count += 1
 
     count.set(current_count)
@@ -24,18 +27,18 @@ def load_pokemon(*args) -> None:
 
 
 root = Tk()
-root.title('Shiny Encounter')
+root.title('Shiny Encounter Tracker')
 
 pokemon = StringVar()
-ttk.Entry(root, textvariable=pokemon).pack()
+ttk.Entry(root, textvariable=pokemon).grid(row=0, column=0, padx=10, pady=10, sticky=W)
 pokemon.trace('w', load_pokemon)
 
 count = IntVar()
-ttk.Label(root, textvariable=count).pack()
+ttk.Label(root, textvariable=count).grid(row=1, column=0, padx=10, pady=10, sticky=W)
 
-ttk.Button(root, text='Encounter', command=increment_counter).pack()
-ttk.Button(root, text='Reset', command=reset_count).pack()
-ttk.Button(root, text='Quit', command=root.quit).pack()
+ttk.Button(root, text='Encounter', command=increment_counter).grid(row=2, column=0, padx=10, pady=10, sticky=W)
+ttk.Button(root, text='Reset', command=reset_count).grid(row=2, column=1, padx=10, pady=10, sticky=W)
+ttk.Button(root, text='Quit', command=root.quit).grid(row=2, column=2, padx=10, pady=10, sticky=W)
 
 
 if __name__ == '__main__':
